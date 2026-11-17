@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Time Traveler B1+ - Future Tenses & Time Words</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Exo 2', sans-serif;
+    background: radial-gradient(ellipse at center, #0a0a2e 0%, #050510 100%);
+    min-height: 100vh;
+    color: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .game-container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2em;
+    font-weight: 900;
+    background: linear-gradient(90deg, #00f3ff, #bc13fe, #0aff0a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+
+  .subtitle {
+    color: #8888aa;
+    font-size: 0.95em;
+    letter-spacing: 1px;
+  }
+
+  /* НАВИГАЦИЯ ВКЛАДОК */
+  .tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 14px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    border-radius: 14px;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tab-btn:hover {
+    border-color: #00f3ff;
+    background: rgba(0, 243, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(90deg, #00f3ff, #bc13fe);
+    border-color: transparent;
+    color: #050510;
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* СТАРТОВЫЙ ЭКРАН */
+  .start-screen {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .start-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8em;
+    font-weight: 900;
+    background: linear-gradient(90deg, #00f3ff, #bc13fe, #0aff0a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+  }
+
+  .start-subtitle {
+    color: #8888aa;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  .topics-list {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 550px;
+    text-align: left;
+  }
+
+  .topic-item {
+    padding: 8px 0;
+    color: #e0e0ff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .topic-item::before {
+    content: '🚀';
+  }
+
+  .start-btn {
+    margin-top: 30px;
+    padding: 20px 60px;
+    background: linear-gradient(90deg, #0aff0a, #00f3ff);
+    border: none;
+    border-radius: 30px;
+    color: #050510;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.3em;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px rgba(10, 255, 10, 0.4);
+  }
+
+  .start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.7);
+  }
+
+  /* ИГРОВОЙ ЭКРАН */
+  .stats-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 16px;
+    padding: 15px 20px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.75em;
+    color: #8888aa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #00f3ff;
+  }
+
+  .stat-value.score { color: #0aff0a; }
+  .stat-value.wrong { color: #ff4757; }
+
+  .progress-container {
+    flex: 1;
+    min-width: 150px;
+    margin: 0 20px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00f3ff, #bc13fe);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px #00f3ff;
+  }
+
+  .question-card {
+    background: linear-gradient(145deg, rgba(10, 10, 46, 0.8), rgba(5, 5, 16, 0.9));
+    border: 2px solid #bc13fe;
+    border-radius: 24px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 0 30px rgba(188, 19, 254, 0.2), inset 0 0 20px rgba(0, 243, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(188, 19, 254, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .tense-badge {
+    display: inline-block;
+    background: rgba(188, 19, 254, 0.2);
+    border: 1px solid #bc13fe;
+    color: #bc13fe;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .question-text {
+    font-size: 1.25em;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 25px;
+  }
+
+  .blank {
+    display: inline-block;
+    min-width: 120px;
+    border-bottom: 3px dashed #00f3ff;
+    margin: 0 5px;
+    text-align: center;
+    color: #00f3ff;
+    font-weight: 700;
+  }
+
+  .answers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .answer-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    padding: 16px 20px;
+    color: #ffffff;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+
+  .answer-btn:hover:not(:disabled) {
+    border-color: #00f3ff;
+    background: rgba(0, 243, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+  }
+
+  .answer-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .answer-btn.correct {
+    border-color: #0aff0a !important;
+    background: rgba(10, 255, 10, 0.15) !important;
+    box-shadow: 0 0 20px rgba(10, 255, 10, 0.4);
+    animation: pulse-green 0.6s ease;
+  }
+
+  .answer-btn.wrong {
+    border-color: #ff4757 !important;
+    background: rgba(255, 71, 87, 0.15) !important;
+    animation: shake 0.5s ease;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  .explanation {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(0, 243, 255, 0.08);
+    border-left: 4px solid #00f3ff;
+    font-size: 0.95em;
+    line-height: 1.5;
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .explanation.show { display: block; animation: slideIn 0.4s ease; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .explanation-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #00f3ff;
+    font-size: 0.9em;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  .next-btn {
+    display: none;
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    background: linear-gradient(90deg, #00f3ff, #bc13fe);
+    border: none;
+    border-radius: 14px;
+    color: #050510;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.1em;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+  }
+
+  .next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(188, 19, 254, 0.6);
+  }
+
+  .next-btn.show { display: block; animation: slideIn 0.4s ease; }
+
+  .final-screen {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .final-screen.show { display: block; animation: slideIn 0.6s ease; }
+
+  .final-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    font-weight: 900;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #0aff0a, #00f3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .final-score {
+    font-size: 4em;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    color: #00f3ff;
+    text-shadow: 0 0 30px #00f3ff;
+    margin: 20px 0;
+  }
+
+  .final-message {
+    font-size: 1.2em;
+    color: #e0e0ff;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  .restart-btn {
+    padding: 18px 50px;
+    background: linear-gradient(90deg, #bc13fe, #00f3ff);
+    border: none;
+    border-radius: 30px;
+    color: #050510;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.2em;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 25px rgba(188, 19, 254, 0.5);
+  }
+
+  .restart-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.7);
+  }
+
+  /* ТЕОРИЯ - ШПАРГАЛКИ */
+  .theory-container {
+    padding: 20px 0;
+  }
+
+  .theory-section {
+    background: linear-gradient(145deg, rgba(10, 10, 46, 0.8), rgba(5, 5, 16, 0.9));
+    border: 2px solid #bc13fe;
+    border-radius: 24px;
+    padding: 30px;
+    margin: 25px 0;
+    box-shadow: 0 0 30px rgba(188, 19, 254, 0.2), inset 0 0 20px rgba(0, 243, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theory-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(188, 19, 254, 0.08) 0%, transparent 70%);
+    animation: rotate 25s linear infinite;
+    pointer-events: none;
+  }
+
+  .theory-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #00f3ff;
+    font-size: 1.6em;
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 0 12px #00f3ff;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .rule-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 15px 0;
+    border-left: 4px solid #bc13fe;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+  }
+
+  .rule-box.green { border-left-color: #0aff0a; }
+  .rule-box.red { border-left-color: #ff4757; }
+  .rule-box.cyan { border-left-color: #00f3ff; }
+
+  .highlight {
+    color: #0aff0a;
+    font-weight: bold;
+    text-shadow: 0 0 5px #0aff0a;
+  }
+
+  .warning {
+    color: #ff4757;
+    font-weight: bold;
+  }
+
+  .example {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 0.95em;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+  }
+
+  .vs-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .vs-box {
+    flex: 1;
+    min-width: 250px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .vs-box.question { border-top: 4px solid #0aff0a; }
+  .vs-box.time { border-top: 4px solid #bc13fe; }
+
+  .vs-box-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .vs-box.question .vs-box-title { color: #0aff0a; }
+  .vs-box.time .vs-box-title { color: #bc13fe; }
+
+  .vs-box-subtitle {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-bottom: 12px;
+    color: #8888aa;
+  }
+
+  .exception-box {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid #0aff0a;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .exception-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(10, 255, 10, 0.15);
+  }
+
+  .exception-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #0aff0a;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .rule-text {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #e0e0ff;
+    margin-bottom: 10px;
+  }
+
+  .highlight-will {
+    color: #ff4757;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 71, 87, 0.5);
+  }
+
+  .highlight-if {
+    color: #00f3ff;
+    font-weight: bold;
+  }
+
+  .note {
+    text-align: center;
+    font-size: 0.9em;
+    color: #8888aa;
+    margin-top: 20px;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  .time-words-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .time-word-chip {
+    background: rgba(0, 243, 255, 0.1);
+    border: 1px solid #00f3ff;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9em;
+    color: #00f3ff;
+    transition: all 0.3s ease;
+  }
+
+  .time-word-chip:hover {
+    background: rgba(0, 243, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+  }
+
+  .tense-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tense-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    border-top: 4px solid #bc13fe;
+  }
+
+  .tense-card:nth-child(2) { border-top-color: #00f3ff; }
+  .tense-card:nth-child(3) { border-top-color: #0aff0a; }
+  .tense-card:nth-child(4) { border-top-color: #ff4757; }
+
+  .tense-card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+
+  .tense-card-form {
+    font-family: 'Courier New', monospace;
+    color: #00f3ff;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+  }
+
+  .tense-card-use {
+    font-size: 0.9em;
+    color: #e0e0ff;
+    line-height: 1.5;
+  }
+
+  .tense-card-example {
+    font-style: italic;
+    color: #0aff0a;
+    font-size: 0.85em;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 600px) {
+    .title { font-size: 1.6em; }
+    .start-title { font-size: 2em; }
+    .question-text { font-size: 1.1em; }
+    .answers-grid { grid-template-columns: 1fr; }
+    .final-score { font-size: 3em; }
+    .stats-bar { flex-direction: column; }
+    .progress-container { width: 100%; margin: 10px 0; }
+    .tab-btn { padding: 12px 20px; font-size: 0.9em; }
+    .theory-title { font-size: 1.3em; }
+    .vs-container { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="game-container">
+  
+  <!-- ЗАГОЛОВОК -->
+  <div class="header">
+    <div class="title">🚀 TIME TRAVELER B1+</div>
+    <div class="subtitle">Future Tenses & Time Words</div>
+  </div>
+
+  <!-- НАВИГАЦИЯ ВКЛАДОК -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('game')">
+      🎮 ИГРА
+    </button>
+    <button class="tab-btn" onclick="switchTab('theory')">
+      📚 ТЕОРИЯ
+    </button>
+  </div>
+
+  <!-- ВКЛАДКА: ИГРА -->
+  <div class="tab-content active" id="gameTab">
+    
+    <!-- СТАРТОВЫЙ ЭКРАН -->
+    <div class="start-screen" id="startScreen">
+      <div class="start-title">🚀 TIME TRAVELER B1+</div>
+      <div class="start-subtitle">
+        Продвинутый уровень: Future Tenses & Time Words<br>
+        35 предложений с when, if, before, after, until, as soon as, by the time
+      </div>
+      <div class="topics-list">
+        <div class="topic-item">Future Simple (will) — решения, обещания, предсказания</div>
+        <div class="topic-item">Future Continuous (will be doing) — процесс в будущем</div>
+        <div class="topic-item">Future Perfect (will have done) — завершение к моменту</div>
+        <div class="topic-item">Be going to — планы и предсказания по фактам</div>
+        <div class="topic-item">Present Simple — расписания и time words</div>
+        <div class="topic-item">Present Continuous — фиксированные планы</div>
+        <div class="topic-item">⚡ TIME WORDS: when, if, before, after, until, as soon as, by the time</div>
+      </div>
+      <button class="start-btn" onclick="startGame()">НАЧАТЬ ИГРУ</button>
+    </div>
+
+    <!-- ИГРОВОЙ ЭКРАН -->
+    <div id="gameScreen" style="display:none;">
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-label">Вопрос</div>
+          <div class="stat-value" id="questionNum">1/35</div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Верно</div>
+          <div class="stat-value score" id="correctCount">0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Ошибки</div>
+          <div class="stat-value wrong" id="wrongCount">0</div>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <div class="tense-badge" id="tenseBadge">FUTURE TENSES</div>
+        <div class="question-text" id="questionText"></div>
+        <div class="answers-grid" id="answersGrid"></div>
+        <div class="explanation" id="explanation">
+          <div class="explanation-title">💡 ПОЯСНЕНИЕ:</div>
+          <div id="explanationText"></div>
+        </div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">СЛЕДУЮЩИЙ ВОПРОС →</button>
+      </div>
+    </div>
+
+    <!-- ФИНАЛЬНЫЙ ЭКРАН -->
+    <div class="final-screen" id="finalScreen">
+      <div class="final-title" id="finalTitle">🏆 МИССИЯ ВЫПОЛНЕНА!</div>
+      <div class="final-score" id="finalScore">0/35</div>
+      <div class="final-message" id="finalMessage"></div>
+      <button class="restart-btn" onclick="restartGame()">🔄 ИГРАТЬ СНОВА</button>
+    </div>
+  </div>
+
+  <!-- ВКЛАДКА: ТЕОРИЯ -->
+  <div class="tab-content" id="theoryTab">
+    <div class="theory-container">
+
+      <!-- ШПАРГАЛКА 1: ЗОЛОТОЕ ПРАВИЛО -->
+      <div class="theory-section">
+        <div class="theory-title">🪐 ЗОЛОТОЕ ПРАВИЛО: NO FUTURE IN TIME CLAUSES</div>
+        
+        <div class="rule-box red">
+          🚫 <span class="warning">НЕЛЬЗЯ:</span> Использовать <b>will</b> после союзов времени:<br>
+          <i>when, before, after, until, as soon as, while, by the time, if</i>
+        </div>
+
+        <div class="rule-box green">
+          ✅ <span class="highlight">МОЖНО:</span> Использовать <b>Present Simple</b> или <b>Present Perfect</b>
+          <div class="example">I will go out after I <span class="highlight">have finished</span> my homework.</div>
+        </div>
+
+        <div class="time-words-grid">
+          <div class="time-word-chip">when</div>
+          <div class="time-word-chip">before</div>
+          <div class="time-word-chip">after</div>
+          <div class="time-word-chip">until</div>
+          <div class="time-word-chip">as soon as</div>
+          <div class="time-word-chip">while</div>
+          <div class="time-word-chip">by the time</div>
+          <div class="time-word-chip">if</div>
+        </div>
+      </div>
+
+      <!-- ШПАРГАЛКА 2: ЛОВУШКА WHEN -->
+      <div class="theory-section">
+        <div class="theory-title">⚡ ЛОВУШКА СЛОВА "WHEN"</div>
+        
+        <div class="vs-container">
+          <div class="vs-box question">
+            <div class="vs-box-title">❓ WHEN = Вопрос</div>
+            <div class="vs-box-subtitle">(At what time? = Когда?)</div>
+            <div class="example">
+              <span style="color:#0aff0a">When will</span> you go to Japan?<br>
+              <span style="color: #8888aa; font-size: 0.9em;">(Когда ты поедешь в Японию?)</span>
+            </div>
+            <div style="margin-top: 12px; font-size: 0.85em; color: #0aff0a;">
+              ✅ Используем <b>Future Simple (will)</b>
+            </div>
+          </div>
+          
+          <div class="vs-box time">
+            <div class="vs-box-title">🕰️ WHEN = Союз времени</div>
+            <div class="vs-box-subtitle">(At the time that = Когда)</div>
+            <div class="example">
+              I will call you when I <span style="color:#bc13fe">finish</span> work.<br>
+              <span style="color: #8888aa; font-size: 0.9em;">(Я позвоню, когда закончу работу.)</span>
+            </div>
+            <div style="margin-top: 12px; font-size: 0.85em; color: #bc13fe;">
+              ✅ Используем <b>Present Simple / Perfect</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="note">
+          💡 Подсказка: Если можно заменить "when" на "at what time" — это вопрос, используем WILL!
+        </div>
+      </div>
+
+      <!-- ШПАРГАЛКА 3: ИСКЛЮЧЕНИЯ WILL ПОСЛЕ IF -->
+      <div class="theory-section">
+        <div class="theory-title">🛸 WILL ПОСЛЕ IF: 3 ИСКЛЮЧЕНИЯ</div>
+        
+        <div class="exception-box">
+          <div class="exception-title">1️⃣ IF = WHETHER («Ли»)</div>
+          <div class="rule-text">Это не условие, а косвенный вопрос. Мы не знаем, произойдет действие или нет.</div>
+          <div class="example">
+            I don't know <span class="highlight-if">if</span> he <span class="highlight-will">will come</span> tomorrow.<br>
+            <span style="color: #8888aa; font-size: 0.9em;">(Я не знаю, придет ли он завтра.)</span>
+          </div>
+        </div>
+
+        <div class="exception-box" style="border-left-color: #bc13fe;">
+          <div class="exception-title" style="color: #bc13fe;">2️⃣ IF = WILLINGNESS («Готовность»)</div>
+          <div class="rule-text">Will здесь = модальный глагол «быть готовым», «соглашаться» или вежливая просьба.</div>
+          <div class="example">
+            <span class="highlight-if">If</span> you <span class="highlight-will">will wait</span> a moment, I'll get the manager.<br>
+            <span style="color: #8888aa; font-size: 0.9em;">(Если вы будете так любезны подождать...)</span>
+          </div>
+        </div>
+
+        <div class="exception-box" style="border-left-color: #00f3ff;">
+          <div class="exception-title" style="color: #00f3ff;">3️⃣ IF = РЕЗУЛЬТАТ («Если это сделает...»)</div>
+          <div class="rule-text">Мы подчеркиваем, что действие в придаточном станет причиной или гарантией главного действия.</div>
+          <div class="example">
+            <span class="highlight-if">If</span> it <span class="highlight-will">will make</span> you happy, I will do it.<br>
+            <span style="color: #8888aa; font-size: 0.9em;">(Если это сделает тебя счастливым, я это сделаю.)</span>
+          </div>
+        </div>
+
+        <div class="note">
+          💡 Помните: В классическом First Conditional (Если случится А, будет Б) мы ВСЕГДА используем Present Simple после IF!
+        </div>
+      </div>
+
+      <!-- ШПАРГАЛКА 4: ОБЗОР ВРЕМЁН -->
+      <div class="theory-section">
+        <div class="theory-title">🌌 FUTURE TENSES OVERVIEW</div>
+        
+        <div class="tense-overview">
+          <div class="tense-card">
+            <div class="tense-card-title">Future Simple</div>
+            <div class="tense-card-form">will + V</div>
+            <div class="tense-card-use">
+              • Спонтанные решения<br>
+              • Обещания<br>
+              • Предсказания (мнение)<br>
+              • Угрозы/предупреждения
+            </div>
+            <div class="tense-card-example">I'll help you! / I promise I won't tell.</div>
+          </div>
+
+          <div class="tense-card">
+            <div class="tense-card-title">Future Continuous</div>
+            <div class="tense-card-form">will be + V-ing</div>
+            <div class="tense-card-use">
+              • Действие в процессе в будущем<br>
+              • Вежливый вопрос о планах<br>
+              • Рутина/расписание
+            </div>
+            <div class="tense-card-example">This time tomorrow I'll be flying.</div>
+          </div>
+
+          <div class="tense-card">
+            <div class="tense-card-title">Future Perfect</div>
+            <div class="tense-card-form">will have + V3</div>
+            <div class="tense-card-use">
+              • Действие завершится ДО момента в будущем<br>
+              • Маркеры: by, by the time, by then
+            </div>
+            <div class="tense-card-example">By 2026 I'll have graduated.</div>
+          </div>
+
+          <div class="tense-card">
+            <div class="tense-card-title">Be going to</div>
+            <div class="tense-card-form">am/is/are going to + V</div>
+            <div class="tense-card-use">
+              • Запланированные действия<br>
+              • Предсказания по фактам (видно сейчас)
+            </div>
+            <div class="tense-card-example">Look at clouds! It's going to rain.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ШПАРГАЛКА 5: PRESENT С БУДУЩИМ ЗНАЧЕНИЕМ -->
+      <div class="theory-section">
+        <div class="theory-title">⏰ PRESENT TENSES С БУДУЩИМ ЗНАЧЕНИЕМ</div>
+        
+        <div class="rule-box cyan">
+          <b style="color: #00f3ff;">Present Simple</b> — Расписания и программы (timetables)
+          <div class="example">
+            The bus <span class="highlight">arrives</span> at 2 o'clock tomorrow.<br>
+            The train <span class="highlight">leaves</span> at 6 PM.
+          </div>
+        </div>
+
+        <div class="rule-box cyan">
+          <b style="color: #00f3ff;">Present Continuous</b> — Фиксированные планы (fixed arrangements)
+          <div class="example">
+            I <span class="highlight">am meeting</span> my boss at 3 PM. (встреча назначена)<br>
+            We <span class="highlight">are flying</span> to Paris next week. (билеты куплены)
+          </div>
+        </div>
+
+        <div class="note">
+          💡 Present Simple = официальное расписание | Present Continuous = личный план с подготовкой
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Генерация звёзд
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 80; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  const size = Math.random() * 2 + 1;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.animationDelay = Math.random() * 3 + 's';
+  star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+  starsContainer.appendChild(star);
+}
+
+// Переключение вкладок
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  
+  if (tab === 'game') {
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    document.getElementById('gameTab').classList.add('active');
+  } else {
+    document.querySelectorAll('.tab-btn')[1].classList.add('active');
+    document.getElementById('theoryTab').classList.add('active');
+  }
+}
+
+// База вопросов
+const questions = [
+  {
+    text: "I'll send you the report when I _______ it.",
+    answers: ["will finish", "finish", "am finishing", "finished"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'when' в придаточном времени НЕ используем will. Используем Present Simple для будущего действия."
+  },
+  {
+    text: "When _______ to Tokyo? I need to book a hotel.",
+    answers: ["you will travel", "do you travel", "will you travel", "are you traveling"],
+    correct: 2,
+    tense: "Future Simple",
+    explanation: "Здесь 'when' = вопросительное слово 'когда?' (at what time?), а не союз времени. Поэтому используем Future Simple."
+  },
+  {
+    text: "She'll be thrilled when she _______ the news about her promotion.",
+    answers: ["will hear", "hears", "is hearing", "heard"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'when' (союз времени) используем Present Simple, даже если действие в будущем. Главное предложение — Future Simple."
+  },
+  {
+    text: "When the meeting _______, we can discuss the budget.",
+    answers: ["will end", "ends", "is ending", "ended"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "Придаточное времени с 'when' → Present Simple. Главное действие (can discuss) произойдёт после."
+  },
+  {
+    text: "I don't know when he _______ back from his business trip.",
+    answers: ["comes", "will come", "is coming", "came"],
+    correct: 1,
+    tense: "Future Simple",
+    explanation: "Здесь 'when' вводит косвенный вопрос (I don't know WHEN... = я не знаю КОГДА). Это не придаточное времени, поэтому используем Future Simple."
+  },
+  {
+    text: "When you _______ the contract, please send it to legal.",
+    answers: ["will sign", "sign", "are signing", "signed"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'when' в условно-временном придаточном → Present Simple. Это инструкция на будущее."
+  },
+  {
+    text: "The project will be completed when all the tests _______ successfully.",
+    answers: ["will pass", "pass", "are passing", "passed"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "Придаточное с 'when' → Present Simple. Главное предложение в Future Simple (will be completed)."
+  },
+  {
+    text: "If the weather _______ good tomorrow, we'll have the outdoor event.",
+    answers: ["will be", "is", "is being", "was"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "В условных предложениях 1-го типа (First Conditional) после 'if' используем Present Simple, а не Future Simple."
+  },
+  {
+    text: "I'm not sure if she _______ to the conference next week.",
+    answers: ["comes", "will come", "is coming", "came"],
+    correct: 1,
+    tense: "Future Simple",
+    explanation: "Здесь 'if' = 'whether' (ли). Это косвенный вопрос, а не условие: 'Я не уверен, придёт ЛИ она'. Поэтому Future Simple."
+  },
+  {
+    text: "If you _______ any problems with the software, contact support immediately.",
+    answers: ["will have", "have", "are having", "had"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "First Conditional: после 'if' → Present Simple. Это инструкция/предупреждение на будущее."
+  },
+  {
+    text: "If it _______ you happy, I'll cancel the meeting.",
+    answers: ["makes", "will make", "is making", "made"],
+    correct: 1,
+    tense: "Future Simple",
+    explanation: "Исключение: 'will' после 'if' используется, когда подчеркиваем РЕЗУЛЬТАТ/последствие. 'If it WILL make you happy' = 'Если это СДЕЛАЕТ тебя счастливым'."
+  },
+  {
+    text: "I'll let you know if I _______ any updates on the project.",
+    answers: ["will get", "get", "am getting", "got"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "Классический First Conditional: после 'if' → Present Simple. Главное предложение — Future Simple (I'll let you know)."
+  },
+  {
+    text: "If you _______ to wait a moment, I'll fetch the documents.",
+    answers: ["wait", "will wait", "are waiting", "waited"],
+    correct: 1,
+    tense: "Future Simple",
+    explanation: "Исключение: 'will' после 'if' = вежливая просьба/готовность (willingness). 'If you WILL wait' = 'Если вы будете так любезны подождать'."
+  },
+  {
+    text: "Please review the document before you _______ it to the client.",
+    answers: ["will send", "send", "are sending", "sent"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'before' в придаточном времени → Present Simple. Это инструкция на будущее."
+  },
+  {
+    text: "Before the deadline _______, we need to finalize all the details.",
+    answers: ["will pass", "passes", "is passing", "passed"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'before' → Present Simple. Дедлайн 'пройдёт' (passes) в будущем, но в придаточном используем настоящее время."
+  },
+  {
+    text: "I'll call you before I _______ the office tonight.",
+    answers: ["will leave", "leave", "am leaving", "left"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'before' → Present Simple. Главное предложение — Future Simple (I'll call you)."
+  },
+  {
+    text: "Before you _______ a decision, consider all the options carefully.",
+    answers: ["will make", "make", "are making", "made"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'before' в придаточном → Present Simple. Это совет/инструкция на будущее."
+  },
+  {
+    text: "After the presentation _______, we'll have a Q&A session.",
+    answers: ["will end", "ends", "is ending", "ended"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'after' → Present Simple. Главное действие (Q&A session) произойдёт после окончания презентации."
+  },
+  {
+    text: "I'll send the invoice after I _______ the final calculations.",
+    answers: ["will complete", "complete", "am completing", "completed"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'after' → Present Simple. Также можно использовать Present Perfect: 'after I have completed'."
+  },
+  {
+    text: "After you _______ the form, submit it to HR.",
+    answers: ["will fill", "fill", "are filling", "filled"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'after' в придаточном → Present Simple. Это инструкция на будущее."
+  },
+  {
+    text: "We'll launch the product after the testing phase _______ successfully.",
+    answers: ["will complete", "completes", "is completing", "completed"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'after' → Present Simple. Главное предложение — Future Simple (We'll launch)."
+  },
+  {
+    text: "I won't start the project until I _______ your approval.",
+    answers: ["will get", "get", "am getting", "got"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'until' → Present Simple. 'I won't start' (Future Simple) + 'until I get' (Present Simple)."
+  },
+  {
+    text: "We'll wait here until the rain _______ .",
+    answers: ["will stop", "stops", "is stopping", "stopped"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'until' → Present Simple. Главное предложение — Future Simple (We'll wait)."
+  },
+  {
+    text: "Don't leave the office until you _______ all your tasks.",
+    answers: ["will finish", "finish", "are finishing", "finished"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'until' → Present Simple. Это инструкция/запрет на будущее."
+  },
+  {
+    text: "I'll call you as soon as I _______ at the hotel.",
+    answers: ["will arrive", "arrive", "am arriving", "arrived"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'as soon as' → Present Simple. Главное предложение — Future Simple (I'll call you)."
+  },
+  {
+    text: "As soon as the meeting _______, we'll send you the minutes.",
+    answers: ["will end", "ends", "is ending", "ended"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'as soon as' → Present Simple. Это обещание действия сразу после события."
+  },
+  {
+    text: "As soon as you _______ the payment, we'll ship your order.",
+    answers: ["will make", "make", "are making", "made"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'as soon as' → Present Simple. Главное предложение — Future Simple (we'll ship)."
+  },
+  {
+    text: "By the time you _______ this email, I'll already be on a plane.",
+    answers: ["will read", "read", "are reading", "readed"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'by the time' → Present Simple. Главное предложение — Future Continuous (I'll be on a plane)."
+  },
+  {
+    text: "By the time the project _______, we will have spent six months on it.",
+    answers: ["will finish", "finishes", "is finishing", "finished"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'by the time' → Present Simple. Главное предложение — Future Perfect (will have spent)."
+  },
+  {
+    text: "By the time she _______ home, the kids will have gone to bed.",
+    answers: ["will get", "gets", "is getting", "got"],
+    correct: 1,
+    tense: "Present Simple",
+    explanation: "После 'by the time' → Present Simple. Главное предложение — Future Perfect (will have gone)."
+  },
+  {
+    text: "This time tomorrow, I _______ on a beach in Thailand.",
+    answers: ["will lie", "will be lying", "am lying", "lie"],
+    correct: 1,
+    tense: "Future Continuous",
+    explanation: "Future Continuous для действия, которое будет В ПРОЦЕССЕ (in progress) в определённый момент будущего. Маркер: 'This time tomorrow'."
+  },
+  {
+    text: "Don't call me at 3 PM — I _______ a presentation to the board.",
+    answers: ["will give", "will be giving", "am giving", "give"],
+    correct: 1,
+    tense: "Future Continuous",
+    explanation: "Future Continuous показывает, что действие будет в процессе в конкретный момент (at 3 PM)."
+  },
+  {
+    text: "This time next week, we _______ our new apartment.",
+    answers: ["will decorate", "will be decorating", "are decorating", "decorate"],
+    correct: 1,
+    tense: "Future Continuous",
+    explanation: "Future Continuous для действия в процессе в будущем. Маркер: 'This time next week'."
+  },
+  {
+    text: "By 2026, I _______ my degree and will be looking for a job.",
+    answers: ["will complete", "will have completed", "am completing", "complete"],
+    correct: 1,
+    tense: "Future Perfect",
+    explanation: "Future Perfect — действие ЗАВЕРШИТСЯ к определённому моменту в будущем. Маркер: 'By 2026'."
+  },
+  {
+    text: "By the end of this month, we _______ all the project milestones.",
+    answers: ["will achieve", "will have achieved", "are achieving", "achieve"],
+    correct: 1,
+    tense: "Future Perfect",
+    explanation: "Future Perfect — все этапы будут ЗАВЕРШЕНЫ к концу месяца. Маркер: 'By the end of this month'."
+  }
+];
+
+let currentQuestion = 0;
+let correct = 0;
+let wrong = 0;
+let shuffledQuestions = [];
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('gameScreen').style.display = 'block';
+  shuffledQuestions = shuffleArray(questions);
+  currentQuestion = 0;
+  correct = 0;
+  wrong = 0;
+  updateStats();
+  showQuestion();
+}
+
+function updateStats() {
+  document.getElementById('questionNum').textContent = `${currentQuestion + 1}/${shuffledQuestions.length}`;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  const progress = ((currentQuestion) / shuffledQuestions.length) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+}
+
+function showQuestion() {
+  const q = shuffledQuestions[currentQuestion];
+  document.getElementById('tenseBadge').textContent = q.tense.toUpperCase();
+  
+  const questionText = q.text.replace('_______', '<span class="blank">_______</span>');
+  document.getElementById('questionText').innerHTML = questionText;
+  
+  const grid = document.getElementById('answersGrid');
+  grid.innerHTML = '';
+  
+  q.answers.forEach((ans, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.textContent = ans;
+    btn.onclick = () => checkAnswer(idx, btn);
+    grid.appendChild(btn);
+  });
+  
+  document.getElementById('explanation').classList.remove('show');
+  document.getElementById('nextBtn').classList.remove('show');
+}
+
+function checkAnswer(idx, btn) {
+  const q = shuffledQuestions[currentQuestion];
+  const buttons = document.querySelectorAll('.answer-btn');
+  buttons.forEach(b => b.disabled = true);
+  
+  if (idx === q.correct) {
+    btn.classList.add('correct');
+    correct++;
+    const blank = document.querySelector('.blank');
+    if (blank) blank.textContent = q.answers[q.correct];
+  } else {
+    btn.classList.add('wrong');
+    buttons[q.correct].classList.add('correct');
+    wrong++;
+  }
+  
+  updateStats();
+  document.getElementById('explanationText').textContent = q.explanation;
+  document.getElementById('explanation').classList.add('show');
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  if (currentQuestion >= shuffledQuestions.length) {
+    showFinal();
+  } else {
+    updateStats();
+    showQuestion();
+  }
+}
+
+function showFinal() {
+  document.getElementById('gameScreen').style.display = 'none';
+  document.getElementById('finalScreen').classList.add('show');
+  document.getElementById('finalScore').textContent = `${correct}/${shuffledQuestions.length}`;
+  
+  const percent = (correct / shuffledQuestions.length) * 100;
+  let message = '';
+  let title = '';
+  
+  if (percent === 100) {
+    title = '🏆 ИДЕАЛЬНО!';
+    message = 'Ты настоящий Time Traveler! Все времена будущего покорены! 🚀✨';
+  } else if (percent >= 85) {
+    title = '🌟 ОТЛИЧНО!';
+    message = 'Почти безупречно! Ты отлично разбираешься в будущих временах!';
+  } else if (percent >= 70) {
+    title = '👍 ХОРОШИЙ РЕЗУЛЬТАТ!';
+    message = 'Неплохо! Но есть над чем поработать. Повтори правила и попробуй снова!';
+  } else if (percent >= 50) {
+    title = '💪 МОЖНО ЛУЧШЕ!';
+    message = 'Ты на правильном пути! Посмотри пояснения к ошибкам и попробуй ещё раз.';
+  } else {
+    title = '📚 НУЖНА ПРАКТИКА!';
+    message = 'Не сдавайся! Изучи правила ещё раз и возвращайся к игре. У тебя всё получится!';
+  }
+  
+  document.getElementById('finalTitle').textContent = title;
+  document.getElementById('finalMessage').textContent = message;
+}
+
+function restartGame() {
+  document.getElementById('finalScreen').classList.remove('show');
+  document.getElementById('startScreen').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
